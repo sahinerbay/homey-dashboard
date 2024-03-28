@@ -1,0 +1,140 @@
+.App {
+  text-align: center;
+}
+
+.Info {
+  font-size: 32px !important;
+  font-weight: bold !important;
+}
+
+.Homey__device {
+  font-size: 34px !important;
+  font-weight: bold !important;
+}
+
+.Homey__device__room_info {
+  font-size: 48px !important;
+  font-weight: bold !important;
+}
+
+.Homey__device__room_info--left {
+  text-align: left;
+  padding-left: 6px;
+}
+
+.Homey__device__room_info--right {
+  text-align: right;
+  padding-right: 6px;
+}
+
+.Homey__device--align-left {
+  text-align: left;
+  padding-left: 6px;
+}
+
+.Homey__device--align-right {
+  text-align: right;
+  padding-right: 6px;
+}
+
+.Info__name--align-left {
+  text-align: left;
+  padding-left: 6px;
+}
+.Info__details--align-right {
+  text-align: right;
+  padding-right: 6px;
+}
+
+.Homey__zone {
+  position: relative;
+}
+
+.Homey__zone,
+.Info__title {
+  margin-bottom: 4px !important;
+  font-size: 36px !important;
+  font-weight: bold !important;
+  margin-top: -2px !important;
+}
+
+.Info__title--center {
+  text-align: center;
+  text-decoration: underline;
+}
+.info__wrapper__center {
+  display: flex;
+  align-items: center;
+}
+
+.Weather--bold {
+  font-weight: bold !important;
+}
+.Weather__current__date {
+  font-size: 38px !important;
+  text-decoration: underline;
+}
+.Weather__current__temp {
+  font-size: 56px !important;
+}
+.Weather__current__divider {
+  font-size: 62px !important;
+}
+.Weather__current__flike {
+  font-size: 48px !important;
+}
+.Weather__day__title,
+.Weather__hour__title {
+  font-size: 38px !important;
+  text-decoration: underline;
+}
+.Weather__day__temp {
+  font-size: 38px !important;
+  margin-bottom: -4px !important;
+}
+.Weather__day__divider {
+  font-size: 40px !important;
+}
+.Weather__day__flike {
+  font-size: 32px !important;
+}
+
+.Weather__hour__temp {
+  font-size: 38px !important;
+  margin-bottom: -20px !important;
+}
+.Weather__hour__divider {
+  font-size: 40px !important;
+}
+.Weather__hour__flike {
+  font-size: 32px !important;
+}
+
+.Weather__hour__pop__title {
+  font-size: 32px !important;
+}
+
+.Weather__hour__pop {
+  font-size: 32px !important;
+}
+.Weather__outdoor-sensor {
+  font-size: 36px !important;
+  font-weight: bold !important;
+}
+
+.Timetable__content {
+  font-size: 36px !important;
+  font-weight: bold !important;
+}
+.Timetable__delay {
+  font-size: 28px !important;
+  font-weight: bold !important;
+}
+.Timetable--align-left {
+  text-align: left;
+  padding-left: 12px;
+}
+.Timetable--align-right {
+  text-align: right;
+  padding-right: 12px;
+}

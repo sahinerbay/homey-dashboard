@@ -1,34 +1,34 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { DEVICE_MAPPING, round } from '../../../config';
 
-export function Heater({ values, deviceName, isOn }: HeaterProps) {
-  const currentTemp = round(values[1], 10);
-  const targetTemp = round(values[0], 10);
+
+export function Heater({ currentTemp, targetTemp, isOn }: HeaterProps) {
+  if(!currentTemp || !targetTemp || isOn === undefined) return null;
+
   const isTempRising = currentTemp <= targetTemp ? '▲' : '... ';
   return (
-    <Grid
-      item
+    <>
+     <Grid
+      xs={2.5}
       container
       alignItems={'baseline'}
+      justifyContent={'flex-end'}
       style={{ textDecoration: isOn ? 'none' : 'line-through' }}
     >
-      <Grid item xs={4}>
-        <Typography className="Homey__device Homey__device--align-left">
-          {/* @ts-ignore */}
-          {DEVICE_MAPPING[deviceName]}
-        </Typography>
-      </Grid>
-
-      <Grid item xs={8}>
-        <Typography className="Homey__device Homey__device--align-right">{`${targetTemp}°${isTempRising}${currentTemp}°`}</Typography>
-      </Grid>
+      <Typography className="homey__device homey-right homey-center">{currentTemp.toFixed(1)}°</Typography>
     </Grid>
+    <Grid xs={0.5} container justifyContent={'flex-end'} style={{ textDecoration: isOn ? 'none' : 'line-through' }}>
+      <Typography className="homey__device homey-right homey-center">{isTempRising}</Typography>
+    </Grid>
+    <Grid xs={1} container justifyContent={'flex-end'} style={{ textDecoration: isOn ? 'none' : 'line-through' }}>
+      <Typography className="homey__device homey-right homey-center">{targetTemp}°</Typography>
+    </Grid>
+    </>
   );
 }
 
 interface HeaterProps {
-  values: number[];
-  deviceName: string;
+  currentTemp: number | undefined;
+  targetTemp: number | undefined;
   isOn: boolean | undefined;
 }

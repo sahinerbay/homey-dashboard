@@ -67,7 +67,7 @@ export interface HomeyCapabilitiesExtended extends HomeyDevice {
   zone: string;
 }
 export interface HomeyDevicesPerZone {
-  [zone: string]: HomeyDevice[];
+  [zone: string]: HomeyZoneDetail;
 }
 export interface HomeyUserPresence {
   name: string;
@@ -84,8 +84,27 @@ export interface HomeyMoreInfo {
   modes: HomeyModeInfo;
   outdoorSensor: HomeyCapabilitiesExtended | undefined;
 }
+export interface HomeyZoneDetailHeater {
+  internalTemp: number | undefined;
+  currentTemp: number;
+  targetTemp: number;
+  isOn: boolean;
+}
+
+export interface HomeyZoneDetailSensor {
+  temp: number | undefined;
+  humid: number | undefined;
+  isMotion: boolean | undefined;
+  isWater: boolean | undefined;
+  isWindowOpen: boolean | undefined;
+}
+
+export interface HomeyZoneDetail {
+  heater: HomeyZoneDetailHeater | undefined,
+  sensor: HomeyZoneDetailSensor | undefined 
+}
 export interface HomeyApiResponse {
-  devices: HomeyDevicesPerZone;
+  devices: HomeyZoneDetail;
   misc: HomeyMoreInfo;
 }
 

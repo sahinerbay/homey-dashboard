@@ -1,24 +1,14 @@
-version: '3'
+version: "3"
 services:
   api:
     build:
       context: ./api
     container_name: dashboard-api
     ports:
-      - '8000:8000'
-    environment:
-      HOMEY_USER_EMAIL: raatetie10b5@gmail.com
-      HOMEY_USER_PASSWORD: 68nf3QboU4a6n*a
-      HOMEY_USER_ID: 623f53443d61760baf2a940c
-      HOMEY_CLIENT_ID: 5a8d4ca6eb9f7a2c9d6ccf6d
-      HOMEY_CLIENT_SECRET: e3ace394af9f615857ceaa61b053f966ddcfb12a
-      HOMEY_CLOUD_ID: 5ebaabeb65d85f5ac41db593
-      HOMEY_OUTDOOR_SENSOR_ID: e3ac2f21-287d-4997-84df-a94ab5dd0ed3
-      HOMEY_REDIRECT_URL: http://localhost
-      WEATHER_PLACE: tapanila
-      WEATHER_CITY: helsinki
-      WEATHER_LOCATION_ID: 100634928
-    restart: unless-stopped   # Add this line to enable automatic restart
+      - "8000:8000"
+    env_file:
+      - ./api/src/.env
+    restart: unless-stopped # Add this line to enable automatic restart
 
   frontend:
     build:
@@ -27,23 +17,24 @@ services:
         - REACT_APP_HSL_KEY=a1e437f79628464c9ea8d542db6f6e94
         - REACT_APP_HSL_STOP_ID_FIRST=HSL:1392136
         - REACT_APP_HSL_STOP_ID_SECOND=HSL:1402181
+        - REACT_APP_HSL_TRAIN_STOP_ID=HSL:1392551
         - PORT=5000
         - REACT_APP_LOCAL_API_PORT=8000
         - REACT_APP_LOCAL_API_URL=http://dashboard-api
     container_name: dashboard-frontend
     tty: true
     ports:
-      - '3000:5000'
-    restart: unless-stopped   # Add this line to enable automatic restart
+      - "3000:5000"
+    restart: unless-stopped # Add this line to enable automatic restart
 
   backend:
     build:
       context: ./backend
     container_name: dashboard-backend
     ports:
-      - '8080:8080'
+      - "8080:8080"
     environment:
       FRONTEND_PORT: 5000
       FRONTEND_URL: http://dashboard-frontend
       NODE_ENV: prod
-    restart: unless-stopped   # Add this line to enable automatic restart
+    restart: unless-stopped # Add this line to enable automatic restart

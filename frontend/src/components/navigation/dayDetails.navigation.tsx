@@ -11,32 +11,32 @@ export function DayDetails({ dayLength }: DayLengthProps) {
   return (
     <Grid container>
       <Grid item xs={6}>
-        <Typography className="Info Info__name--align-left">
+        <Typography className="Info homey-left">
           Sunrise:
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography className="Info Info__details--align-right">
+        <Typography className="Info homey-right">
           {sunrise}
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography className="Info Info__name--align-left">
+        <Typography className="Info homey-left">
           Sunset:
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography className="Info Info__details--align-right">
+        <Typography className="Info homey-right">
           {sunset}
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography className="Info Info__name--align-left">
+        <Typography className="Info homey-left">
           Length:
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography className="Info Info__details--align-right">
+        <Typography className="Info homey-right">
           {lengthofday}
         </Typography>
       </Grid>

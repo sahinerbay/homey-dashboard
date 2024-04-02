@@ -7,6 +7,8 @@ import { useState } from 'react';
 import Homey from './components/homey/index.homey';
 import Weather from './components/weather/index.weather';
 import InfoPanel from './components/navigation/index.navigation';
+import HeaderNav from './components/navigation/header.navigation';
+
 import {
   DayLength,
   HomeyModeInfo,
@@ -26,15 +28,15 @@ function Main() {
 
   return (
     <div className="App">
+      <HeaderNav 
+        modes={modes}
+        userPresence={userPresence}
+      />
       <Weather
         setDayLength={setDayLength}
         outdoorSensor={outdoorSensor}
       />
-      <InfoPanel
-        dayLength={dayLength}
-        modes={modes}
-        userPresence={userPresence}
-      />
+      <InfoPanel dayLength={dayLength} />
       <Homey
         setModes={setModes}
         setUserPresence={setUserPresence}

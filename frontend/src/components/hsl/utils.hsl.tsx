@@ -10,3 +10,18 @@ export function convertSecondsToHoursAndMinutes(
 
   return { hours: formattedHours, minutes: formattedMinutes };
 }
+
+export function formatSeconds(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  let result = '';
+  if (minutes > 0) {
+      result += minutes + 'm';
+  }
+  if (remainingSeconds > 0 || result === '') {
+      result += remainingSeconds + 's';
+  }
+
+  return result;
+}

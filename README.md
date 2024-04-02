@@ -25,7 +25,10 @@ This project aims to develop a feature-rich smart home dashboard, facilitating s
 
 - You have the freedom to adjust device names displayed in the UI by modifying the corresponding mappings in `frontend/src/config.ts`.
 
-### Version II (Branch main)
+### Version II (Branch version_2)
+
+![GitHub Logo](https://github.com/sahinerbay/homey-dashboard/blob/version_2/frontend/layout/version2_kindle.jpeg?raw=true)
+![GitHub Logo](https://github.com/sahinerbay/homey-dashboard/blob/version_2/frontend/layout/version2_raw.png?raw=true)
 
 ## Homey
 
@@ -82,12 +85,21 @@ Ensure the following components are set up before proceeding with the installati
      vi /mnt/us/script.sh
      ```
    - Add the following content to the script:
+
      ```
-     curl http://IP_ADDRESS_OF_RASPBERRY_PI:8081/captures -o status.png
-     eips -c
-     eips -c
-     eips -g status.png
+      curl http://IP_ADDRESS_OF_RASPBERRY_PI:8081/captures -o status.png
+
+      if [ $? -ne 0 ]; then
+          # Curl failed, print a message and use a fallback image
+          echo "Curl request failed, using fallback image"
+          cp fallback.png status.png  # Replace fallback.png with the path to your fallback image
+      fi
+
+      eips -c
+
+      eips -g status.png
      ```
+
    - Ensure the script runs successfully before setting up a cron job.
 
 2. **Cron Job Setup:**

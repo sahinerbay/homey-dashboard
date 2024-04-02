@@ -1,45 +1,30 @@
-import { useState } from 'react';
 import Grid from '@mui/material/Grid';
-import { Devices } from './../devices/index.devices';
-import { HeaderZone } from './header.zones';
-import { InfoZone } from './info.zones';
-import { HomeyDevice, HomeyRoomInfoInterface } from '../../../types';
+import { ZoneTitle } from './header.zones';
+import { HomeyZoneDetail } from '../../../types';
 import { BorderStyle } from './../../../tokens';
+import { Heater } from '../devices/heater.devices';
+import { SensorOther } from '../sensor/other.sensor';
+import { SensorHumidAndTemp } from '../sensor/temp_humid.sensor';
 
 export function Zone({ zoneName, zoneDeviceList }: HomeyProps) {
-  const [isActiveMotion, setMotionActivity] =
-    useState<boolean>(false);
-
-  const [isWindowOpen, setWindowActivity] = useState<boolean>(false);
-
-  const [isWet, setWaterActivity] = useState<boolean>(false);
-
-  const [roomTempAndHumid, setRoomTempAndHumid] =
-    useState<HomeyRoomInfoInterface | null>(null);
+  
+  const { sensor, heater } = zoneDeviceList;
 
   return (
     <Grid
-      item
-      xs={3}
+      xs={6}
       key={zoneName}
       border={BorderStyle}
       className={zoneName}
+      container
     >
-      <HeaderZone
-        zoneName={zoneName}
-        isActiveMotion={isActiveMotion}
-        isWindowOpen={isWindowOpen}
-        isWet={isWet}
-      />
-      {roomTempAndHumid && (
-        <InfoZone roomTempAndHumid={roomTempAndHumid} />
-      )}
-      <Devices
-        deviceList={zoneDeviceList}
-        setMotionActivity={setMotionActivity}
-        setWindowActivity={setWindowActivity}
-        setWaterActivity={setWaterActivity}
-        setRoomTempAndHumid={setRoomTempAndHumid}
+      <ZoneTitle zoneName={zoneName} />
+      <SensorOther isMotion={sensor?.isMotion} isOpen={sensor?.isWindowOpen} isWet={sensor?.isWater} />
+      <SensorHumidAndTemp temp={sensor?.temp || heater?.internalTemp} humid={sensor?.humid} />
+      <Heater
+        currentTemp={heater?.currentTemp}
+        targetTemp={heater?.targetTemp}
+        isOn={heater?.isOn}
       />
     </Grid>
   );
@@ -47,5 +32,5 @@ export function Zone({ zoneName, zoneDeviceList }: HomeyProps) {
 
 interface HomeyProps {
   zoneName: string;
-  zoneDeviceList: HomeyDevice[];
+  zoneDeviceList: HomeyZoneDetail;
 }

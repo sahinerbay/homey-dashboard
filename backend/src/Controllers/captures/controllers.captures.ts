@@ -44,6 +44,8 @@ export const CapturesController = async (
       waitUntil: ['networkidle2'],
     });
 
+    logger.info('Waiting for #Header to be visible');
+    await page.waitForSelector('#Header');
     logger.info('Waiting for #Homey to be visible');
     await page.waitForSelector('#Homey');
     logger.info('Waiting for #Weather to be visible');
@@ -75,6 +77,6 @@ export const CapturesController = async (
 
     res.sendFile('screenshot.png', { root: '.' });
   } catch (err) {
-    next(err);
+    res.sendFile('fallback.png', { root: '.' });
   }
 };

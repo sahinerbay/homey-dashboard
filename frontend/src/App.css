@@ -2,55 +2,60 @@
   text-align: center;
 }
 
+.homey__device {
+  font-size: 40px !important;
+  font-weight: bold !important;
+}
+
+.homey__zone {
+  position: relative;
+}
+
+.homey__zone--title {
+  font-size: 38px !important;
+  font-weight: bold !important;
+ 
+}
+
+.homey-modes {
+  font-size: 28px !important;
+  font-weight: bold !important; 
+}
+
+.homey-center {
+  display: flex;
+  align-items: center;
+}
+
+.home-presence > div:first-child, .home-modes > div:first-child {
+  text-align: left;
+  padding-left: 6px;
+}
+
+.home-presence > div:nth-child(2){
+  text-align: right;
+}
+
+.home-presence > div:last-child {
+  text-align: right;
+  padding-right: 6px;
+}
+
+.homey-left {
+  text-align: left;
+  padding-left: 6px;
+}
+
+.homey-right {
+  text-align: right;
+  padding-right: 6px;
+}
+
 .Info {
   font-size: 32px !important;
   font-weight: bold !important;
 }
 
-.Homey__device {
-  font-size: 34px !important;
-  font-weight: bold !important;
-}
-
-.Homey__device__room_info {
-  font-size: 48px !important;
-  font-weight: bold !important;
-}
-
-.Homey__device__room_info--left {
-  text-align: left;
-  padding-left: 6px;
-}
-
-.Homey__device__room_info--right {
-  text-align: right;
-  padding-right: 6px;
-}
-
-.Homey__device--align-left {
-  text-align: left;
-  padding-left: 6px;
-}
-
-.Homey__device--align-right {
-  text-align: right;
-  padding-right: 6px;
-}
-
-.Info__name--align-left {
-  text-align: left;
-  padding-left: 6px;
-}
-.Info__details--align-right {
-  text-align: right;
-  padding-right: 6px;
-}
-
-.Homey__zone {
-  position: relative;
-}
-
-.Homey__zone,
 .Info__title {
   margin-bottom: 4px !important;
   font-size: 36px !important;
@@ -62,6 +67,7 @@
   text-align: center;
   text-decoration: underline;
 }
+
 .info__wrapper__center {
   display: flex;
   align-items: center;
@@ -70,31 +76,39 @@
 .Weather--bold {
   font-weight: bold !important;
 }
+
 .Weather__current__date {
   font-size: 38px !important;
   text-decoration: underline;
 }
+
 .Weather__current__temp {
   font-size: 56px !important;
 }
+
 .Weather__current__divider {
   font-size: 62px !important;
 }
+
 .Weather__current__flike {
   font-size: 48px !important;
 }
+
 .Weather__day__title,
 .Weather__hour__title {
   font-size: 38px !important;
   text-decoration: underline;
 }
+
 .Weather__day__temp {
   font-size: 38px !important;
   margin-bottom: -4px !important;
 }
+
 .Weather__day__divider {
   font-size: 40px !important;
 }
+
 .Weather__day__flike {
   font-size: 32px !important;
 }
@@ -103,9 +117,11 @@
   font-size: 38px !important;
   margin-bottom: -20px !important;
 }
+
 .Weather__hour__divider {
   font-size: 40px !important;
 }
+
 .Weather__hour__flike {
   font-size: 32px !important;
 }
@@ -117,24 +133,39 @@
 .Weather__hour__pop {
   font-size: 32px !important;
 }
+
 .Weather__outdoor-sensor {
   font-size: 36px !important;
   font-weight: bold !important;
 }
 
-.Timetable__content {
+.timetable__content {
   font-size: 36px !important;
   font-weight: bold !important;
 }
-.Timetable__delay {
+
+.timetable__delay {
   font-size: 28px !important;
   font-weight: bold !important;
 }
-.Timetable--align-left {
-  text-align: left;
-  padding-left: 12px;
+
+#hsl-bus .timetable:nth-child(1) > div > div:nth-child(1) div:nth-child(3) {
+  padding-right: 15px;
 }
-.Timetable--align-right {
-  text-align: right;
-  padding-right: 12px;
+#hsl-bus .timetable:nth-child(1) > div > div:nth-child(3) div:nth-child(3) {
+  padding-right: 15px;
 }
+#hsl-bus .timetable:nth-child(1) > div > div:nth-child(2) div:nth-child(1) {
+  padding-left: 15px;
+}
+#hsl-bus .timetable:nth-child(1) > div > div:nth-child(4) div:nth-child(1) {
+  padding-left: 15px;
+}
+
+#hsl-train .timetable:nth-child(1) > div > div div:nth-child(3) {
+  padding-right: 10px;
+}
+#hsl-train .timetable:nth-child(2) > div > div > div:nth-child(1) {
+  padding-left: 10px;
+}
+

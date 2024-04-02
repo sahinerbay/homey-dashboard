@@ -8,8 +8,8 @@ const IconOutdoor = styled('img')({
   width: '40px',
   height: '40px',
   position: 'absolute',
-  left: '10px',
-  bottom: '10px',
+  left: '24px',
+  bottom: '11px',
 });
 
 export function HomeyOutdoorSensor({
@@ -25,18 +25,10 @@ export function HomeyOutdoorSensor({
       style={{ position: 'relative', marginTop: '-12px' }}
     >
       <IconOutdoor src="/icon/outdoor.png" />
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <Typography
           className="Weather__outdoor-sensor"
-          textAlign={'right'}
-          paddingRight={'6px'}
-        >{`${temperature}${units[0]}`}</Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography
-          className="Weather__outdoor-sensor"
-          textAlign={'left'}
-        >{`${humidity}${units[1]}`}</Typography>
+        >{`${Math.round(temperature as number)}${units[0]}`} {`${humidity}${units[1]}`}</Typography>
       </Grid>
     </Grid>
   );

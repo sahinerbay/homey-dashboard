@@ -3,12 +3,22 @@ import Grid from '@mui/material/Grid';
 import { useTimetable } from './timetable.hook';
 import { FallbackDisplay } from '../misc/fallbackDisplay';
 import { Stop } from '../../types';
-import { convertSecondsToHoursAndMinutes } from './utils.hsl';
+import { convertSecondsToHoursAndMinutes, formatSeconds } from './utils.hsl';
 
-const numberOfDepartures = 2;
 const currentEpochTime = new Date().getTime() / 1000; // Divide by 1000 to convert milliseconds to seconds
-
-export function HslTimeTable({ stationId }: HslProps) {
+const layout = {
+  single: {
+    xs: 12,
+    columns: 24,
+    childSize: 6
+  },
+  double: {
+    xs: 6,
+    columns: 12,
+    childSize: 12
+  },
+}
+export function HslTimeTable({ stationId, numberOfDepartures, layoutType }: HslProps) {
   const timetable = useTimetable(
     stationId,
     currentEpochTime,
@@ -21,14 +31,13 @@ export function HslTimeTable({ stationId }: HslProps) {
   const { desc, stoptimesWithoutPatterns } =
     data?.stop || ({} as Stop);
 
-  console.log('stoptimesWithoutPatterns', stoptimesWithoutPatterns);
   return (
-    <Grid xs={6}>
+    <Grid xs={layout[layoutType].xs} className="timetable">
       <Typography className="Info__title Info__title--center">
         {desc}
       </Typography>
-      <Grid container>
-        {stoptimesWithoutPatterns.map((stop, index) => {
+      <Grid container columns={layout[layoutType].columns}>
+        {stoptimesWithoutPatterns.map((stop, i) => {
           const {
             trip: { route },
             scheduledArrival,
@@ -38,29 +47,29 @@ export function HslTimeTable({ stationId }: HslProps) {
             convertSecondsToHoursAndMinutes(scheduledArrival);
 
           return (
-            <>
-              <Grid item xs={3}>
-                <Typography className="Timetable__content Timetable--align-left">
+            <Grid container item xs={layout[layoutType].childSize}>
+              <Grid item xs={4}>
+                <Typography className="timetable__content homey-left">
                   {route.shortName}
                 </Typography>
               </Grid>
               <Grid
                 item
-                xs={3}
+                xs={2}
                 alignItems={'center'}
-                justifyContent={'end'}
+                justifyContent={'center'}
                 display={'flex'}
               >
-                <Typography className="Timetable__delay">
-                  {arrivalDelay === 0 ? '--' : `${arrivalDelay}s`}
+                <Typography className="timetable__delay">
+                  {arrivalDelay === 0 ? '--' : `${formatSeconds(arrivalDelay)}`}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography className="Timetable__content Timetable--align-right">
+                <Typography className="timetable__content homey-right">
                   {`${hours}:${minutes}`}
                 </Typography>
               </Grid>
-            </>
+            </Grid>
           );
         })}
       </Grid>
@@ -70,4 +79,6 @@ export function HslTimeTable({ stationId }: HslProps) {
 
 interface HslProps {
   stationId: string;
+  numberOfDepartures: number;
+  layoutType: 'single' | 'double';
 }

@@ -1,25 +1,21 @@
 import Grid from '@mui/material/Grid';
-import { HomeyMode } from './homeyMode.navigation';
-import { HomeyPresence } from './homeyPresence.navigation';
 import { DayDetails } from './dayDetails.navigation';
 import { HslTimeTable } from '../hsl/timetable.hsl';
 import {
   DayLength,
-  HomeyModeInfo,
-  HomeyUserPresence,
 } from '../../types';
 import { BorderStyle } from './../../tokens';
 
-const STATION_ID_ARR = [
+const BUS_STATION_ID_ARR = [
   process.env.REACT_APP_HSL_STOP_ID_FIRST,
   process.env.REACT_APP_HSL_STOP_ID_SECOND,
 ];
 
-export default function InfoPanel({
-  dayLength,
-  modes,
-  userPresence,
-}: InfoPanelProps) {
+const TRAIN_STATION_ID_ARR = [
+  process.env.REACT_APP_HSL_TRAIN_STOP_ID,
+];
+
+export default function InfoPanel({ dayLength }: InfoPanelProps) {
   return (
     // #Info used when Puppeteer takes screenshot
     <Grid container m={0} columns={15} id="Info">
@@ -28,46 +24,33 @@ export default function InfoPanel({
         xs={3}
         border={BorderStyle}
         className="info__wrapper__center"
-      >
-        <HomeyPresence userPresence={userPresence} />
-      </Grid>
-      <Grid
-        item
-        xs={3}
-        border={BorderStyle}
-        className="info__wrapper__center"
-      >
-        <HomeyMode modes={modes} />
-      </Grid>
-      <Grid
-        item
-        xs={3}
-        border={BorderStyle}
-        className="info__wrapper__center"
+        alignItems={'stretch'}
       >
         <DayDetails dayLength={dayLength} />
       </Grid>
-      <Grid item xs={6} border={BorderStyle}>
+      <Grid item xs={6} border={BorderStyle} id="hsl-bus" >
         <Grid container>
-          {STATION_ID_ARR.map((stationId) => {
+          {TRAIN_STATION_ID_ARR.map((id) => {
             return (
-              <HslTimeTable key={stationId} stationId={stationId!} />
+              <HslTimeTable key={id} stationId={id!} numberOfDepartures={4} layoutType='single' />
             );
           })}
         </Grid>
       </Grid>
-      {/* <Grid item xs={3} border={BorderStyle}>
-        <HomeyOutdoorSensor data={outdoorSensor} />
+
+      <Grid item xs={6} border={BorderStyle}>
+        <Grid container id="hsl-train">
+          {BUS_STATION_ID_ARR.map((id) => {
+            return (
+              <HslTimeTable key={id} stationId={id!} numberOfDepartures={2} layoutType='double' />
+            );
+          })}
+        </Grid>
       </Grid>
-      <Grid item xs={3} border={BorderStyle}>
-        <WeatherUpdate updatedAt={updatedAt} />
-      </Grid> */}
     </Grid>
   );
 }
 
 interface InfoPanelProps {
   dayLength: DayLength | null;
-  modes: HomeyModeInfo | null;
-  userPresence: HomeyUserPresence[] | null;
 }

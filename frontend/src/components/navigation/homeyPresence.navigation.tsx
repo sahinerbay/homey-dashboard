@@ -9,21 +9,14 @@ export function HomeyPresence({
   if (!userPresence) return <FallbackDisplay text={'N/A'} />;
 
   return (
-    <Grid container>
+    <Grid container className="home-presence">
       {userPresence.map((user) => {
         return (
-          <>
-            <Grid item xs={6}>
-              <Typography className="Info Info__name--align-left">
-                {user.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography className="Info Info__details--align-right">
-                {user.isHome ? 'Home' : 'Away'}
-              </Typography>
-            </Grid>
-          </>
+          <Grid item xs={4}>
+            <Typography className="Info">
+              {user.name}: {user.isHome ? 'Home' : 'Away'}
+            </Typography>
+          </Grid>
         );
       })}
     </Grid>

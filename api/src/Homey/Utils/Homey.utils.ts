@@ -4,7 +4,7 @@ import {
 } from './../Types/Homey.devices.types';
 import { HomeyApiUsersResponse } from './../Types/Homey.users.types';
 import { CONFIG } from './../../config';
-import { HomeyUserPresence } from './../../Controllers/devices/types.devices';
+import { HomeyUserPresence, HomeyDevicesPerZone } from './../../Controllers/devices/types.devices';
 import { getTimeDifferenceInMinutes } from './../../utils';
 
 export class HomeyUtils {
@@ -79,5 +79,59 @@ export class HomeyUtils {
     }
 
     return normResp;
+  }
+
+  static calculateAverageTempAndHumid(devices: HomeyDevicesPerZone) {
+    const sensorAvg = {
+      temp: 0,
+      humid: 0,
+      isMotion: undefined,
+      isWater: undefined,
+      isWindowOpen: undefined,
+    };
+
+    const heaterAvg = {
+      internalTemp: 0,
+      currentTemp: 0,
+      targetTemp: 0,
+      isOn: true,
+    }
+
+    let numSensorsTemp = 0;
+    let numSensorsHumid = 0;
+    let numHeaters = 0;
+
+    // Iterate over each device and its sensors
+    for (const device of Object.values(devices)) {
+      const sensor = device.sensor;
+      if (sensor && sensor.temp !== undefined && sensor.humid !== undefined) {
+        sensorAvg.temp += sensor.temp;
+        sensorAvg.humid += sensor.humid;
+        numSensorsTemp ++;
+        numSensorsHumid ++;
+      }
+
+      const heater = device.heater;
+      if(sensor && sensor.temp === undefined && heater && heater.internalTemp !== undefined) {
+        sensorAvg.temp += heater.internalTemp;
+        numSensorsTemp++;
+      }
+
+      if(heater && heater.currentTemp !== undefined) {
+        heaterAvg.internalTemp += heater.internalTemp || 0;
+        heaterAvg.currentTemp += heater.currentTemp;
+        heaterAvg.targetTemp += heater.targetTemp;
+        numHeaters++;
+      }
+    }
+
+    sensorAvg.temp = Math.round(sensorAvg.temp / numSensorsTemp * 10) / 10;
+    sensorAvg.humid = Math.round(sensorAvg.humid / numSensorsHumid);
+
+    heaterAvg.internalTemp = Math.round(heaterAvg.internalTemp / numHeaters * 10) / 10;
+    heaterAvg.currentTemp = Math.round(heaterAvg.currentTemp / numHeaters * 10) / 10;
+    heaterAvg.targetTemp = Math.round(heaterAvg.targetTemp / numHeaters);
+
+    return { sensor: sensorAvg, heater: heaterAvg};
   }
 }

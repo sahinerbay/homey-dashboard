@@ -37,7 +37,7 @@ export default function Homey({
 
   return (
     // #Homey used when Puppeteer takes screenshot
-    <Grid container m={0} columns={15} id="Homey">
+    <Grid container id="Homey">
       {zones.map((zone) => {
         return (
           <Zone zoneName={zone} zoneDeviceList={homeyData[zone]} />

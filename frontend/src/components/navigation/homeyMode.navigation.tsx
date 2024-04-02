@@ -12,40 +12,25 @@ export function HomeyMode({ modes }: Readonly<HomeyModeProps>) {
     <Grid container>
       {Manual ? (
         <Grid xs={12}>
-          <Typography className="Info">
+          <Typography className="homey-modes">
             MANUAL MODE ENABLED
           </Typography>
         </Grid>
       ) : (
         <>
-          <Grid item xs={6}>
-            <Typography className="Info Info__name--align-left">
-              Mode:
+          <Grid item xs={4}>
+            <Typography className="homey-modes homey-left">
+              Mode: {Day}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography className="Info Info__details--align-right">
-              {Day}
+          <Grid item xs={4}>
+            <Typography className="homey-modes ">
+              Presence: {Presence}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography className="Info Info__name--align-left">
-              Presence:
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography className="Info Info__details--align-right">
-              {Presence}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography className="Info Info__name--align-left">
-              Season:
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography className="Info Info__details--align-right">
-              {Season}
+          <Grid item xs={4}>
+            <Typography className="homey-modes homey-right">
+              Season: {Season}
             </Typography>
           </Grid>
         </>

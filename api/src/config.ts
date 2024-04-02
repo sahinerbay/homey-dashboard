@@ -11,6 +11,7 @@ export const CONFIG = {
     'measure_temperature',
     'measure_humidity',
     'target_temperature',
+    'measure_temperature.internal'
   ],
   HOMEY_VIRTUAL_ZONES: ['Day', 'Presence', 'Season', 'Manual'],
   WEATHER_FMI_API: 'https://en.ilmatieteenlaitos.fi/api/weather',

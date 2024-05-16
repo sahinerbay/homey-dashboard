@@ -75,7 +75,14 @@ Ensure the following components are set up before proceeding with the installati
      crontab -l # To view existing cronjobs
      grep CRON /var/log/syslog # Cronjob logs
      ```
+4. **Set timezone**
+   See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for details.
 
+   ```
+   date 
+   
+   sudo timedatectl set-timezone Europe/Helsinki
+   ```
 ### Kindle Integration
 
 1. **Screenshot Request Script:**

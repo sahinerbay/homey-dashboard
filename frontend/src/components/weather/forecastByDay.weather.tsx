@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import { ForecastByDayData } from '../../types';
+import { ForecastByDayItem } from '../../types';
 import { FMI_IMAGE_URL } from '../../config';
 
 const Img = styled('img')({
@@ -17,33 +17,27 @@ export function ForecastByDay({
 }: ForecastByDayProps) {
   return (
     <>
-      {Object.entries(forecastByDay).map((item, index) => {
-        const [day, forecast] = item;
+      {forecastByDay.map((item, index) => {
+        const {day, lowest, highest} = item;
         return (
-          <Grid item xs={3} key={index}>
+          <Grid item xs={3} key={index} className='Weather__day'>
             <Typography className="Weather--bold Weather__day__title">
               {day}
             </Typography>
             <Grid container item xs key={index}>
-              {forecast.map((item, index) => {
-                const { flike, symb, temp } = item;
+              {[lowest, highest].map((item, index) => {
+                const  [temp, time, symb] = item;
                 return (
                   <Grid item xs={6} key={index}>
+                     <Typography
+                        className="Weather--bold Weather__day__time"
+                        component="span"
+                      >
+                        {time}
+                      </Typography>
                     <Img src={`${FMI_IMAGE_URL}/${symb}.svg`} />
                     <Typography className="Weather--bold Weather__day__temp">
-                      {Math.round(temp)}°
-                      <Typography
-                        className="Weather--bold Weather__day__divider"
-                        component="span"
-                      >
-                        |
-                      </Typography>
-                      <Typography
-                        className="Weather--bold Weather__day__flike"
-                        component="span"
-                      >
-                        {Math.round(flike)}°
-                      </Typography>
+                      {temp}°
                     </Typography>
                   </Grid>
                 );
@@ -57,5 +51,5 @@ export function ForecastByDay({
 }
 
 interface ForecastByDayProps {
-  data: ForecastByDayData;
+  data: ForecastByDayItem[];
 }

@@ -23,6 +23,10 @@ export const WeatherCotroller = async (
       currentDataResp[process.env.WEATHER_LOCATION_ID as string];
     const { symb, temp, flike, updated } = currentObservation;
     const observationAgeInMin = getTimeDifferenceInMinutes(updated);
+    const timestamp = new Date(updated);
+    const hours = timestamp.getHours();
+    let minutes: number | string = timestamp.getMinutes();
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
 
     /* Handle Forecast Data */
     const forecastResp = await weatherAPI.fetchForecastData();
@@ -39,15 +43,16 @@ export const WeatherCotroller = async (
       WeatherUtils.filterHourlyForecast(forecastValues);
     const forecastByDay =
       WeatherUtils.filterDailyForecast(forecastValues);
-
+      
     const resp: WeatherApiResponse = {
       current: {
         temp,
         flike,
         symb,
+        time: `${hours}:${minutes}`,
       },
       forecastByHour: WeatherUtils.cleanForecastData(forecastByHour),
-      forecastByDay: WeatherUtils.mergeByDay(forecastByDay),
+      forecastByDay,
       updatedAt: {
         current: formatUpdatedAt(observationAgeInMin),
         forecast: formatUpdatedAt(forecastAgeInMin),

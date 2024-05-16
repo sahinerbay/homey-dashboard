@@ -126,7 +126,7 @@ export const DevicesController = async (
     }
 
     const averageByAllDevices = HomeyUtils.calculateAverageTempAndHumid(favoriteDevicesNormalizedPerZone);
-    favoriteDevicesNormalizedPerZone['Average'] = averageByAllDevices;
+    favoriteDevicesNormalizedPerZone['AVERAGE'] = averageByAllDevices;
 
     // Sort keys based on the number of items in the corresponding arrays
     const sortedKeys = Object.keys(

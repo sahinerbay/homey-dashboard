@@ -7,9 +7,9 @@ import { FMI_IMAGE_URL } from '../../config';
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
-  width: '200px',
-  height: '200px',
-  marginTop: '-44px',
+  width: '160px',
+  height: '160px',
+  marginTop: '-20px',
 });
 
 export function ForecastByHour({
@@ -18,9 +18,9 @@ export function ForecastByHour({
   return (
     <>
       {forecastByHour.map((item, index: number) => {
-        const { time, flike, symb, temp } = item;
+        const { time, flike, symb, temp, pop, precipitation } = item;
         return (
-          <Grid item xs={3} key={index} mt={2}>
+          <Grid item xs={3} key={index} className="Weather__hour">
             <Typography className="Weather--bold Weather__hour__title">
               {time}
             </Typography>
@@ -39,6 +39,9 @@ export function ForecastByHour({
               >
                 {flike}°
               </Typography>
+            </Typography>
+            <Typography className="Weather--bold Weather__hour__pop">
+              {pop}% {precipitation}mm
             </Typography>
           </Grid>
         );

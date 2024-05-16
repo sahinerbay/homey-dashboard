@@ -14,7 +14,6 @@ export default function HeaderNav({
       <Grid
         item
         xs={7.5}
-        border={BorderStyle}
         className="info__wrapper__center"
       >
         <HomeyPresence userPresence={userPresence} />
@@ -22,7 +21,6 @@ export default function HeaderNav({
       <Grid
         item
         xs={7.5}
-        border={BorderStyle}
         className="info__wrapper__center"
       >
         <HomeyMode modes={modes} />

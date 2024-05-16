@@ -6,29 +6,24 @@ import {
   CurrentForecastItem,
   HomeyCapabilitiesExtended,
 } from '../../types';
-import { currentDay } from './utils.weather';
 import { FORECA_IMAGE_URL } from './../../config';
 
 const Img = styled('img')({
-  margin: '20px auto',
+  margin: '5px auto',
   display: 'block',
-  width: '250px',
-  height: '300px',
+  width: '120px',
+  height: '120px',
 });
 
 export function CurrentWeather({
   data: currentWeather,
   outdoorSensor,
 }: CurrentWeatherProps) {
-  const { flike, symb, temp } = currentWeather;
-
-  const currentDate = new Date();
-  const today = currentDay(currentDate);
-
+  const { flike, symb, temp, time } = currentWeather;
   return (
     <Grid item>
       <Typography className="Weather--bold Weather__current__date">
-        {today}
+        {time}
       </Typography>
       <Img src={`${FORECA_IMAGE_URL}/${symb}.png`} />
       <Typography className="Weather--bold Weather__current__temp">

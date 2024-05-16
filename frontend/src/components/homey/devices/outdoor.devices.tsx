@@ -5,10 +5,10 @@ import { FallbackDisplay } from '../../misc/fallbackDisplay';
 import { HomeyCapabilitiesExtended } from '../../../types';
 
 const IconOutdoor = styled('img')({
-  width: '40px',
-  height: '40px',
+  width: '36px',
+  height: '36px',
   position: 'absolute',
-  left: '24px',
+  left: '45px',
   bottom: '11px',
 });
 
@@ -22,7 +22,7 @@ export function HomeyOutdoorSensor({
   return (
     <Grid
       container
-      style={{ position: 'relative', marginTop: '-12px' }}
+      style={{ position: 'relative', marginTop: '4px' }}
     >
       <IconOutdoor src="/icon/outdoor.png" />
       <Grid item xs={12}>

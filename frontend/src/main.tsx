@@ -32,11 +32,11 @@ function Main() {
         modes={modes}
         userPresence={userPresence}
       />
+      <InfoPanel dayLength={dayLength} />
       <Weather
         setDayLength={setDayLength}
         outdoorSensor={outdoorSensor}
       />
-      <InfoPanel dayLength={dayLength} />
       <Homey
         setModes={setModes}
         setUserPresence={setUserPresence}

@@ -17,7 +17,7 @@ export const CONFIG = {
   WEATHER_FMI_API: 'https://en.ilmatieteenlaitos.fi/api/weather',
   WEATHER_FORECA_API: 'https://api.foreca.net/data',
   WEATHER_HOUR_RANGE: 4,
-  WEATHER_DAY_RANGE: 4,
+  WEATHER_DAY_RANGE: 5,
   WEATHER_DAY_MORNING_TIME: 9,
   WEATHER_DAY_EVENING_TIME: 21,
 };

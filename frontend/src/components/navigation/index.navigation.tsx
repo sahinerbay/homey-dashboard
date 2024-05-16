@@ -22,13 +22,12 @@ export default function InfoPanel({ dayLength }: InfoPanelProps) {
       <Grid
         item
         xs={3}
-        border={BorderStyle}
         className="info__wrapper__center"
         alignItems={'stretch'}
       >
         <DayDetails dayLength={dayLength} />
       </Grid>
-      <Grid item xs={6} border={BorderStyle} id="hsl-bus" >
+      <Grid item xs={6} id="hsl-train" >
         <Grid container>
           {TRAIN_STATION_ID_ARR.map((id) => {
             return (
@@ -38,8 +37,8 @@ export default function InfoPanel({ dayLength }: InfoPanelProps) {
         </Grid>
       </Grid>
 
-      <Grid item xs={6} border={BorderStyle}>
-        <Grid container id="hsl-train">
+      <Grid item xs={6}>
+        <Grid container id="hsl-bus">
           {BUS_STATION_ID_ARR.map((id) => {
             return (
               <HslTimeTable key={id} stationId={id!} numberOfDepartures={2} layoutType='double' />

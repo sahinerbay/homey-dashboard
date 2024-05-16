@@ -9,7 +9,8 @@ const Icon = styled('img')({
 export function SensorOther({
   isMotion,
   isOpen,
-  isWet
+  isWet,
+  isTempRising
 }: Readonly<SensorOtherProps>) {
 
     return (
@@ -40,4 +41,5 @@ interface SensorOtherProps {
   isMotion: boolean | undefined;
   isOpen: boolean | undefined;
   isWet: boolean | undefined;
+  isTempRising: boolean;
 }

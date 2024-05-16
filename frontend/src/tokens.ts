@@ -1,1 +1,1 @@
-export const BorderStyle = '2px solid';
+export const BorderStyle = '2px solid black';

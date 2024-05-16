@@ -1,6 +1,6 @@
 import { CONFIG } from '../../config';
-import { ForecastValues } from './../Types/Weather.types';
-import { Edays } from './../../Controllers/weather/types.weather';
+import { ForecastValues, } from './../Types/Weather.types';
+import { Edays, ForecastByDayItem } from './../../Controllers/weather/types.weather';
 
 const dayNames = [
   'Sunday',
@@ -40,45 +40,36 @@ export class WeatherUtils {
       .slice(1, hoursRange + 1);
   }
 
-  static filterDailyForecast(forecastValues: ForecastValues[]) {
+  static filterDailyForecast(forecastValues: ForecastValues[]): ForecastByDayItem[] {
     const daysRange = CONFIG.WEATHER_DAY_RANGE;
-    const morningTime = CONFIG.WEATHER_DAY_MORNING_TIME;
-    const eveningTime = CONFIG.WEATHER_DAY_EVENING_TIME;
-    const timestamps: string[] = [];
 
-    for (let i = 0; i < daysRange; i++) {
-      const currentDateMorning = this.generateTimeFormatByHour(
-        i * 24 + morningTime
-      );
-      timestamps.push(currentDateMorning);
+    // Create a map to group temperatures by date
+    const temperatureMap = forecastValues.reduce((map, forecast) => {
+      // Extract date from timestamp
+      const day = dayNames[new Date(forecast.isolocaltime).getDay()]
 
-      const currentDateEvening = this.generateTimeFormatByHour(
-        i * 24 + eveningTime
-      );
-      timestamps.push(currentDateEvening);
-    }
+      // Add temperature and timestamp to corresponding date in the map
+      if (!map.has(day)) {
+        map.set(day, []);
+      }
+      map.get(day).push({ temperature: Math.round(forecast.Temperature * 10)/10, timestamp: forecast.isolocaltime, symb: forecast.SmartSymbol });
 
-    return forecastValues.filter((forecast) => {
-      const forecastDateIso = forecast.isolocaltime;
-      return timestamps.includes(forecastDateIso);
-    });
+      return map;
+    }, new Map());
+
+    // Iterate over temperature map to find highest and lowest temperature per day
+    return Array.from(temperatureMap.entries()).slice(1, daysRange +1).map(([day, temperatures]) => {
+      const temperaturesForDay: number[] = temperatures.map((entry: { temperature: number; }) => entry.temperature);
+      const lowestTemp: number = Math.min(...temperaturesForDay);
+      const highestTemp: number = Math.max(...temperaturesForDay);
+      const lowestTempTimestamp: string = temperatures.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).timestamp.split('T')[1].substring(0, 5);
+      const highestTempTimestamp: string = temperatures.find((entry: { temperature: number; }) => entry.temperature === highestTemp).timestamp.split('T')[1].substring(0, 5);
+      const lowestTempSymbol: number = temperatures.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).symb;
+      const highestTempSymbol: number = temperatures.find((entry: { temperature: number; }) => entry.temperature === highestTemp).symb;
+
+      return { day, lowest:[lowestTemp, lowestTempTimestamp, lowestTempSymbol], highest:[highestTemp, highestTempTimestamp, highestTempSymbol]};
+    })
   }
-
-  static mergeByDay = (forecastValues: ForecastValues[]) => {
-    return this.cleanForecastData(forecastValues).reduce(
-      (acc, obj) => {
-        const { day, ...rest } = obj;
-
-        if (!acc[day]) {
-          acc[day] = [];
-        }
-
-        acc[day].push(rest);
-        return acc;
-      },
-      {} as any
-    );
-  };
 
   static generateTimeFormatByHour = (hour: number) => {
     const plainDay = Math.floor(hour / 24);

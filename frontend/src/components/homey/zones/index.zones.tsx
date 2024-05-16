@@ -9,6 +9,8 @@ import { SensorHumidAndTemp } from '../sensor/temp_humid.sensor';
 export function Zone({ zoneName, zoneDeviceList }: HomeyProps) {
   
   const { sensor, heater } = zoneDeviceList;
+  const { currentTemp, targetTemp } = heater || { currentTemp: 0, targetTemp: 0 };
+  const isTempRising = currentTemp <= targetTemp 
 
   return (
     <Grid
@@ -17,13 +19,14 @@ export function Zone({ zoneName, zoneDeviceList }: HomeyProps) {
       border={BorderStyle}
       className={zoneName}
       container
+      style={isTempRising ? { backgroundColor: '#bebbbb'} : {}}
     >
       <ZoneTitle zoneName={zoneName} />
-      <SensorOther isMotion={sensor?.isMotion} isOpen={sensor?.isWindowOpen} isWet={sensor?.isWater} />
+      <SensorOther isMotion={sensor?.isMotion} isOpen={sensor?.isWindowOpen} isWet={sensor?.isWater} isTempRising={isTempRising} />
       <SensorHumidAndTemp temp={sensor?.temp || heater?.internalTemp} humid={sensor?.humid} />
       <Heater
-        currentTemp={heater?.currentTemp}
-        targetTemp={heater?.targetTemp}
+        currentTemp={currentTemp}
+        targetTemp={targetTemp}
         isOn={heater?.isOn}
       />
     </Grid>

@@ -55,7 +55,7 @@ export function HslTimeTable({ stationId, numberOfDepartures, layoutType }: HslP
               </Grid>
               <Grid
                 item
-                xs={2}
+                xs={3}
                 alignItems={'center'}
                 justifyContent={'center'}
                 display={'flex'}
@@ -64,7 +64,7 @@ export function HslTimeTable({ stationId, numberOfDepartures, layoutType }: HslP
                   {arrivalDelay === 0 ? '--' : `${formatSeconds(arrivalDelay)}`}
                 </Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Typography className="timetable__content homey-right">
                   {`${hours}:${minutes}`}
                 </Typography>

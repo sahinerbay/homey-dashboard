@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import { CurrentWeather } from './current.weather';
 import { ForecastByHour } from './forecastByHour.weather';
 import { ForecastByDay } from './forecastByDay.weather';
-import { Precipitation } from './precipitation.weather';
 import { FallbackDisplay } from './../misc/fallbackDisplay';
 import {
   DayLength,
@@ -40,22 +39,22 @@ export default function Weather({
       m={0}
       border={BorderStyle}
       id="Weather"
-      columns={15}
     >
-      <Grid item xs={3}>
-        <CurrentWeather
-          data={weatherData.current}
-          outdoorSensor={outdoorSensor}
-        />
-      </Grid>
       <Grid item xs={12}>
-        <Grid container m={0}>
-          <ForecastByDay data={weatherData.forecastByDay} />
-          <ForecastByHour data={weatherData.forecastByHour} />
-          <Precipitation data={weatherData.forecastByHour} />
+          <Grid container m={0} columns={15} className="Weather__hour__container">
+            <Grid item xs={3}>
+              <CurrentWeather
+                data={weatherData.current}
+                outdoorSensor={outdoorSensor}
+              />
+            </Grid>
+            <ForecastByHour data={weatherData.forecastByHour} />
+          </Grid>
+          <Grid container m={0} columns={15} className="Weather__day__container">
+            <ForecastByDay data={weatherData.forecastByDay} />
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
   );
 }
 interface WeatherProps {

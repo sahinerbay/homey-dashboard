@@ -57,15 +57,17 @@ export class WeatherUtils {
       return map;
     }, new Map());
 
+
     // Iterate over temperature map to find highest and lowest temperature per day
     return Array.from(temperatureMap.entries()).slice(1, daysRange +1).map(([day, temperatures]) => {
-      const temperaturesForDay: number[] = temperatures.map((entry: { temperature: number; }) => entry.temperature);
+      const temp24h = temperatures.slice(0, 24);
+      const temperaturesForDay: number[] = temp24h.map((entry: { temperature: number; }) => entry.temperature);
       const lowestTemp: number = Math.min(...temperaturesForDay);
       const highestTemp: number = Math.max(...temperaturesForDay);
-      const lowestTempTimestamp: string = temperatures.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).timestamp.split('T')[1].substring(0, 5);
-      const highestTempTimestamp: string = temperatures.find((entry: { temperature: number; }) => entry.temperature === highestTemp).timestamp.split('T')[1].substring(0, 5);
-      const lowestTempSymbol: number = temperatures.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).symb;
-      const highestTempSymbol: number = temperatures.find((entry: { temperature: number; }) => entry.temperature === highestTemp).symb;
+      const lowestTempTimestamp: string = temp24h.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).timestamp.split('T')[1].substring(0, 5);
+      const highestTempTimestamp: string = temp24h.find((entry: { temperature: number; }) => entry.temperature === highestTemp).timestamp.split('T')[1].substring(0, 5);
+      const lowestTempSymbol: number = temp24h.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).symb;
+      const highestTempSymbol: number = temp24h.find((entry: { temperature: number; }) => entry.temperature === highestTemp).symb;
 
       return { day, lowest:[lowestTemp, lowestTempTimestamp, lowestTempSymbol], highest:[highestTemp, highestTempTimestamp, highestTempSymbol]};
     })

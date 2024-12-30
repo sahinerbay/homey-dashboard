@@ -4,7 +4,7 @@
 FROM node:18 AS builder
 WORKDIR /app
 COPY ./package*.json ./
-RUN npm ci --noproxy registry.npmjs.org --maxsockets=1
+RUN npm ci --registry=http://registry.npmjs.org 
 COPY ./ ./
 RUN npm run build
 

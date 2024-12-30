@@ -205,3 +205,9 @@ Ensure you have Node.js and npm installed on your machine. After completing thes
    npm install
    npm run start
    ```
+
+backend api is not taking the screenshot when running it locally due to the limitation of Puppeteer. The workaround is to run it on docker compose. 
+```
+   cd full_stack_dashboard
+   docker compose up
+```

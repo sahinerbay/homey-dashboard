@@ -69,7 +69,11 @@ export class WeatherUtils {
       const lowestTempSymbol: number = temp24h.find((entry: { temperature: number; }) => entry.temperature === lowestTemp).symb;
       const highestTempSymbol: number = temp24h.find((entry: { temperature: number; }) => entry.temperature === highestTemp).symb;
 
-      return { day, lowest:[lowestTemp, lowestTempTimestamp, lowestTempSymbol], highest:[highestTemp, highestTempTimestamp, highestTempSymbol]};
+      if (lowestTempTimestamp < highestTempTimestamp) {
+        return { day, temp:[[lowestTemp, lowestTempTimestamp, lowestTempSymbol], [highestTemp, highestTempTimestamp, highestTempSymbol]]};
+      } else {
+        return { day, temp:[[highestTemp, highestTempTimestamp, highestTempSymbol], [lowestTemp, lowestTempTimestamp, lowestTempSymbol]]};
+      }
     })
   }
 

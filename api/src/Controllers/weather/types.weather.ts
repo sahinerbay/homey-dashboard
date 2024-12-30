@@ -7,8 +7,7 @@ interface CurrentForecastItem {
 
 export interface ForecastByDayItem {
   day: string;
-  lowest: [number, string, number];
-  highest: [number, string, number];
+  temp:[[number, string, number],[number, string, number]];
 }
 
 export interface ForecastByHourItem {

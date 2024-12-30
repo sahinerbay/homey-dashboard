@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import path from 'path';
 import * as puppeteer from 'puppeteer';
 import UserAgent from 'user-agents';
 import Jimp from 'jimp';
-import { v4 as uuidv4 } from 'uuid';
 import { convert, logger } from './../../utils';
+
+let numberOfFails = 0;
 
 export const CapturesController = async (
   req: Request,
@@ -12,7 +12,7 @@ export const CapturesController = async (
   next: NextFunction
 ): Promise<void> => {
   const puppeteerOptions: puppeteer.PuppeteerLaunchOptions = {
-    headless: 'new',
+    headless: true,
     ignoreDefaultArgs: ['--disable-extensions'],
     args: [
       '--no-sandbox',
@@ -75,8 +75,16 @@ export const CapturesController = async (
       logger.info('Image converted');
     }
 
+    numberOfFails = 0
     res.sendFile('screenshot.png', { root: '.' });
   } catch (err) {
-    res.sendFile('fallback.png', { root: '.' });
+    logger.error(err)
+    numberOfFails += 1;
+    logger.error('Number of fails in a row is: ' + numberOfFails);
+    if(numberOfFails >= 5) {
+      res.sendFile('fallback.png', { root: '.' });
+    } else{
+      res.sendFile('screenshot.png', { root: '.' }); 
+    }
   }
 };

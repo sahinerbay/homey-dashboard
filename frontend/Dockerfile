@@ -11,8 +11,7 @@ ARG ENV
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm config set registry http://registry.npmjs.org/
-RUN npm ci --noproxy registry.npmjs.org --maxsockets=1
+RUN npm ci --registry=http://registry.npmjs.org 
 COPY ./ ./
 
 RUN sh create-env-file.sh REACT_APP_LOCAL_API_URL=$REACT_APP_LOCAL_API_URL \

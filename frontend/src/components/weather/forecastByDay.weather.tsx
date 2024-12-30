@@ -18,14 +18,14 @@ export function ForecastByDay({
   return (
     <>
       {forecastByDay.map((item, index) => {
-        const {day, lowest, highest} = item;
+        const {day, temp} = item;
         return (
           <Grid item xs={3} key={index} className='Weather__day'>
             <Typography className="Weather--bold Weather__day__title">
               {day}
             </Typography>
             <Grid container item xs key={index}>
-              {[lowest, highest].map((item, index) => {
+              {temp.map((item, index) => {
                 const  [temp, time, symb] = item;
                 return (
                   <Grid item xs={6} key={index}>
